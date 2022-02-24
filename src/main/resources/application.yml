@@ -1,4 +1,11 @@
 spring:
-  h2:
-    console:
-      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/invoices_program?serverTimezone=Europe/Warsaw&useSSL=False&allowPublicKeyRetrieval=true
+    username: admin_user
+    password: admin_password
+
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
