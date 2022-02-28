@@ -1,7 +1,6 @@
 package kots.invoiceprogram.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,17 +9,14 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "businessDetails")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Business {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(
-            mappedBy = "business",
-            cascade = CascadeType.PERSIST
-    )
-    private List<User> userList;
 
     @OneToMany(
             mappedBy = "business",

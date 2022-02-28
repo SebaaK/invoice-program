@@ -37,8 +37,13 @@ public class Invoice {
     )
     private List<Item> itemList;
 
-    @Enumerated(EnumType.STRING)
-    private GTUType gtuType;
+    @OneToMany(
+            cascade = {
+                    CascadeType.REMOVE,
+                    CascadeType.PERSIST
+            }
+    )
+    private List<InvoiceGtu> gtuType;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
