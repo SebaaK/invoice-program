@@ -16,4 +16,5 @@ public class BusinessDto {
     private String city;
     private Integer taxId;
     private String emailAddress;
+    private String country;
 }

@@ -17,6 +17,13 @@ public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String fullName;
+    private String address;
+    private String postalCode;
+    private String city;
+    private String country;
+    private Integer taxId;
+    private String emailAddress;
 
     @OneToMany(
             mappedBy = "business",
@@ -29,11 +36,4 @@ public class Business {
             cascade = CascadeType.REMOVE
     )
     private List<Invoice> invoiceList;
-
-    private String fullName;
-    private String address;
-    private String postalCode;
-    private String city;
-    private Integer taxId;
-    private String emailAddress;
 }

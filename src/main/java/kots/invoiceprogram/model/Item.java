@@ -17,7 +17,7 @@ public class Item {
     private Long id;
 
     @ManyToOne
-    @Column(name = "invoiceId")
+    @JoinColumn(name = "invoiceId")
     private Invoice invoice;
 
     private String name;

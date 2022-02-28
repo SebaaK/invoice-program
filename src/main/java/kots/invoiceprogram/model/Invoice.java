@@ -1,6 +1,5 @@
 package kots.invoiceprogram.model;
 
-import kots.invoiceprogram.model.selectors.GTUType;
 import kots.invoiceprogram.model.selectors.PaymentMethod;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,11 +20,11 @@ public class Invoice {
     private Long id;
 
     @ManyToOne
-    @Column(name = "businessId")
+    @JoinColumn(name = "businessId")
     private Business business;
 
     @ManyToOne
-    @Column(name = "customerId")
+    @JoinColumn(name = "customerId")
     private Customer customer;
 
     @OneToMany(
@@ -43,6 +42,7 @@ public class Invoice {
                     CascadeType.PERSIST
             }
     )
+    @JoinColumn(name = "invoice_id")
     private List<InvoiceGtu> gtuType;
 
     @Enumerated(EnumType.STRING)

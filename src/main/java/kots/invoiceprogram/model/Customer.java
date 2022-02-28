@@ -16,7 +16,7 @@ public class Customer {
     private Long id;
 
     @ManyToOne
-    @Column(name = "businessId")
+    @JoinColumn(name = "businessId")
     private Business business;
 
     private String customerName;
