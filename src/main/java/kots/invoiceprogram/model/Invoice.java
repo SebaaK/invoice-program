@@ -1,18 +1,18 @@
 package kots.invoiceprogram.model;
 
 import kots.invoiceprogram.model.selectors.PaymentMethod;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "invoices")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Invoice {
 
     @Id
@@ -34,16 +34,11 @@ public class Invoice {
                     CascadeType.PERSIST
             }
     )
-    private List<Item> itemList;
+    private Set<Item> itemList;
 
-    @OneToMany(
-            cascade = {
-                    CascadeType.REMOVE,
-                    CascadeType.PERSIST
-            }
-    )
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "invoice_id")
-    private List<InvoiceGtu> gtuType;
+    private Set<InvoiceGtu> gtuType;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
@@ -56,4 +51,5 @@ public class Invoice {
     private String otherCurrencyName;
     private BigDecimal otherCurrencyGrossPrice;
     private BigDecimal exchangeRate;
+
 }

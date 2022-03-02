@@ -1,15 +1,14 @@
 package kots.invoiceprogram.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "invoicesItems")
+@NoArgsConstructor
 public class Item {
 
     @Id
@@ -22,9 +21,32 @@ public class Item {
 
     private String name;
     private String ui;
-    private Integer quantity;
+    private int quantity;
     private BigDecimal netPrice;
-    private Integer taxValue;
+    private double taxPercent;
+
+    @Setter(AccessLevel.NONE)
+    private BigDecimal taxValue;
+
+    @Setter(AccessLevel.NONE)
     private BigDecimal grossPrice;
-    private Integer discount;
+    private double discount;
+
+    public Item(Long id, String name, String ui, int quantity, BigDecimal netPrice, double taxPercent, double discount) {
+        this.id = id;
+        this.name = name;
+        this.ui = ui;
+        this.quantity = quantity;
+        this.netPrice = netPrice;
+        this.taxPercent = taxPercent;
+        this.discount = discount;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void calculateGrossPrice() {
+        taxValue = netPrice.multiply(BigDecimal.valueOf(taxPercent));
+        grossPrice = netPrice.add(taxValue);
+        grossPrice.divide(BigDecimal.valueOf(1 + discount));
+    }
 }
