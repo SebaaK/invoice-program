@@ -51,5 +51,4 @@ class BusinessController {
         service.deleteBusiness(id);
         return ResponseEntity.ok().build();
     }
-
 }

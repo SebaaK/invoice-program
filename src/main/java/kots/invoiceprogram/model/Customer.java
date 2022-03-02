@@ -1,6 +1,7 @@
 package kots.invoiceprogram.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "customers")
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -27,4 +29,15 @@ public class Customer {
     private String businessCountry;
     private Integer taxId;
     private String emailAddress;
+
+    public Customer(String customerName, String businessName, String businessAddress, String businessPostalCode, String businessCity, String businessCountry, Integer taxId, String emailAddress) {
+        this.customerName = customerName;
+        this.businessName = businessName;
+        this.businessAddress = businessAddress;
+        this.businessPostalCode = businessPostalCode;
+        this.businessCity = businessCity;
+        this.businessCountry = businessCountry;
+        this.taxId = taxId;
+        this.emailAddress = emailAddress;
+    }
 }

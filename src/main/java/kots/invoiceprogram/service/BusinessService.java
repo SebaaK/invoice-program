@@ -4,7 +4,9 @@ import kots.invoiceprogram.model.Business;
 import kots.invoiceprogram.model.dto.BusinessDto;
 import kots.invoiceprogram.repository.BusinessRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -20,7 +22,7 @@ public class BusinessService {
     }
 
     public Business getSingleBusiness(Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public Business createNewBusiness(Business business) {

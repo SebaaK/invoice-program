@@ -1,13 +1,15 @@
 package kots.invoiceprogram.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "businessDetails")
 @Builder
 @AllArgsConstructor
@@ -29,11 +31,11 @@ public class Business {
             mappedBy = "business",
             cascade = CascadeType.REMOVE
     )
-    private List<Customer> customerList;
+    private Set<Customer> customerList;
 
     @OneToMany(
             mappedBy = "business",
             cascade = CascadeType.REMOVE
     )
-    private List<Invoice> invoiceList;
+    private Set<Invoice> invoiceList;
 }
