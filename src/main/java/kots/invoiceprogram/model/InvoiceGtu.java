@@ -1,14 +1,14 @@
 package kots.invoiceprogram.model;
 
 import kots.invoiceprogram.model.selectors.GTUType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "invoicesGtu")
 public class InvoiceGtu {
 

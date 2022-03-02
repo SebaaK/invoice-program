@@ -4,6 +4,10 @@ import kots.invoiceprogram.model.Item;
 import kots.invoiceprogram.model.dto.ItemDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class ItemMapper {
 
@@ -34,5 +38,11 @@ public class ItemMapper {
                 item.getGrossPrice(),
                 item.getDiscount()
         );
+    }
+
+    public Set<ItemDto> mapToItemDtoList(final Set<Item> itemList) {
+        return itemList.stream()
+                .map(this::mapToItemDto)
+                .collect(Collectors.toSet());
     }
 }

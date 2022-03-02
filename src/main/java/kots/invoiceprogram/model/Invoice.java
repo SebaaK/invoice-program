@@ -1,17 +1,20 @@
 package kots.invoiceprogram.model;
 
 import kots.invoiceprogram.model.selectors.PaymentMethod;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "invoices")
-@AllArgsConstructor
 @NoArgsConstructor
 public class Invoice {
 
@@ -21,10 +24,12 @@ public class Invoice {
 
     @ManyToOne
     @JoinColumn(name = "businessId")
+    @Setter(AccessLevel.NONE)
     private Business business;
 
     @ManyToOne
     @JoinColumn(name = "customerId")
+    @Setter(AccessLevel.NONE)
     private Customer customer;
 
     @OneToMany(
@@ -44,12 +49,42 @@ public class Invoice {
     private PaymentMethod paymentMethod;
 
     private String invoiceNumber;
-    private Date createdDate;
-    private Date issueDate;
-    private Date dueDate;
+    @Setter(AccessLevel.NONE)
+    private LocalDate createdDate;
+    private LocalDate issueDate;
+    private LocalDate dueDate;
     private BigDecimal grossPrice;
     private String otherCurrencyName;
     private BigDecimal otherCurrencyGrossPrice;
     private BigDecimal exchangeRate;
 
+    public Invoice(Long id, PaymentMethod paymentMethod, String invoiceNumber, LocalDate issueDate, LocalDate dueDate, BigDecimal grossPrice, String otherCurrencyName, BigDecimal otherCurrencyGrossPrice, BigDecimal exchangeRate) {
+        this.id = id;
+        this.paymentMethod = paymentMethod;
+        this.invoiceNumber = invoiceNumber;
+        this.issueDate = issueDate;
+        this.dueDate = dueDate;
+        this.grossPrice = grossPrice;
+        this.otherCurrencyName = otherCurrencyName;
+        this.otherCurrencyGrossPrice = otherCurrencyGrossPrice;
+        this.exchangeRate = exchangeRate;
+    }
+
+    @PrePersist
+    void setCreatedDate() {
+        createdDate = LocalDate.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return id.equals(invoice.id) && invoiceNumber.equals(invoice.invoiceNumber) && createdDate.equals(invoice.createdDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, invoiceNumber, createdDate);
+    }
 }
