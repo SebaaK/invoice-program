@@ -4,7 +4,6 @@ import kots.invoiceprogram.model.Item;
 import kots.invoiceprogram.model.dto.ItemDto;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,12 +14,14 @@ public class ItemMapper {
         Item item = new Item(
                 itemDto.getId(),
                 itemDto.getName(),
-                itemDto.getUi(),
                 itemDto.getQuantity(),
                 itemDto.getNetPrice(),
                 itemDto.getTaxPercent(),
+                itemDto.getTaxValue(),
+                itemDto.getGrossPrice(),
                 itemDto.getDiscount()
         );
+
         item.calculateGrossPrice();
 
         return item;
@@ -30,7 +31,6 @@ public class ItemMapper {
         return new ItemDto(
                 item.getId(),
                 item.getName(),
-                item.getUi(),
                 item.getQuantity(),
                 item.getNetPrice(),
                 item.getTaxPercent(),

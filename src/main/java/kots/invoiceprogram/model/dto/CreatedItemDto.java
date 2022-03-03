@@ -1,20 +1,17 @@
 package kots.invoiceprogram.model.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 
 @Getter
-@AllArgsConstructor
-public class ItemDto {
+public class CreatedItemDto {
 
-    private Long id;
     private String name;
-    private Integer quantity;
+    private int quantity;
     private BigDecimal netPrice;
-    private Double taxPercent;
+    private double taxPercent;
     private BigDecimal taxValue;
     private BigDecimal grossPrice;
-    private Double discount;
+    private double discount;
 }

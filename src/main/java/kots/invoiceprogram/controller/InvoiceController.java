@@ -1,20 +1,18 @@
 package kots.invoiceprogram.controller;
 
 import kots.invoiceprogram.mapper.InvoiceMapper;
+import kots.invoiceprogram.model.dto.CreatedInvoiceDto;
 import kots.invoiceprogram.model.dto.InvoiceDto;
 import kots.invoiceprogram.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/business/{idBusiness}/invoice")
+@RequestMapping("/api/business/{idBusiness}/invoices")
 class InvoiceController {
 
     private final InvoiceService invoiceService;
@@ -28,5 +26,10 @@ class InvoiceController {
     @GetMapping("/{idInvoice}")
     ResponseEntity<InvoiceDto> getSingleInvoice(@PathVariable Long idBusiness, @PathVariable Long idInvoice) {
         return ResponseEntity.ok(invoiceMapper.invoiceDtoWithFullDetails(invoiceService.getSingleInvoice(idInvoice, idBusiness)));
+    }
+
+    @PostMapping("/{idCustomer}")
+    ResponseEntity<InvoiceDto> createNewInvoiceForCustomer(@PathVariable Long idBusiness, @PathVariable Long idCustomer, @RequestBody CreatedInvoiceDto invoiceDto) {
+        return ResponseEntity.ok().build();
     }
 }

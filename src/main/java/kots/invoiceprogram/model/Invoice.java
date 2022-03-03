@@ -1,10 +1,7 @@
 package kots.invoiceprogram.model;
 
 import kots.invoiceprogram.model.selectors.PaymentMethod;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -54,17 +51,22 @@ public class Invoice {
     private LocalDate issueDate;
     private LocalDate dueDate;
     private BigDecimal grossPrice;
+    private String currencyName;
     private String otherCurrencyName;
     private BigDecimal otherCurrencyGrossPrice;
     private BigDecimal exchangeRate;
 
-    public Invoice(Long id, PaymentMethod paymentMethod, String invoiceNumber, LocalDate issueDate, LocalDate dueDate, BigDecimal grossPrice, String otherCurrencyName, BigDecimal otherCurrencyGrossPrice, BigDecimal exchangeRate) {
+    public Invoice(Long id, Set<Item> itemList, Set<InvoiceGtu> gtuType, PaymentMethod paymentMethod, String invoiceNumber, LocalDate createdDate, LocalDate issueDate, LocalDate dueDate, BigDecimal grossPrice, String currencyName, String otherCurrencyName, BigDecimal otherCurrencyGrossPrice, BigDecimal exchangeRate) {
         this.id = id;
+        this.itemList = itemList;
+        this.gtuType = gtuType;
         this.paymentMethod = paymentMethod;
         this.invoiceNumber = invoiceNumber;
+        this.createdDate = createdDate;
         this.issueDate = issueDate;
         this.dueDate = dueDate;
         this.grossPrice = grossPrice;
+        this.currencyName = currencyName;
         this.otherCurrencyName = otherCurrencyName;
         this.otherCurrencyGrossPrice = otherCurrencyGrossPrice;
         this.exchangeRate = exchangeRate;

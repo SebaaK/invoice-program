@@ -1,6 +1,7 @@
 package kots.invoiceprogram.mapper;
 
 import kots.invoiceprogram.model.Invoice;
+import kots.invoiceprogram.model.dto.CreatedInvoiceDto;
 import kots.invoiceprogram.model.dto.InvoiceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class InvoiceMapper {
     private final CustomerMapper customerMapper;
     private final ItemMapper itemMapper;
 
+    public Invoice mapToInvoice(final CreatedInvoiceDto createdInvoiceDto) {
+        return new Invoice();
+        //TODO: Dokończyć!
+    }
+
     public InvoiceDto invoiceDtoWithoutDetails(final Invoice invoice) {
         return InvoiceDto.builder()
                 .id(invoice.getId())
@@ -24,6 +30,7 @@ public class InvoiceMapper {
                 .issueDate(invoice.getIssueDate())
                 .dueDate(invoice.getDueDate())
                 .grossPrice(invoice.getGrossPrice())
+                .currencyName(invoice.getCurrencyName())
                 .otherCurrencyName(invoice.getOtherCurrencyName())
                 .otherCurrencyGrossPrice(invoice.getOtherCurrencyGrossPrice())
                 .exchangeRate(invoice.getExchangeRate())
@@ -49,6 +56,7 @@ public class InvoiceMapper {
                 .issueDate(invoice.getIssueDate())
                 .dueDate(invoice.getDueDate())
                 .grossPrice(invoice.getGrossPrice())
+                .currencyName(invoice.getCurrencyName())
                 .otherCurrencyName(invoice.getOtherCurrencyName())
                 .otherCurrencyGrossPrice(invoice.getOtherCurrencyGrossPrice())
                 .exchangeRate(invoice.getExchangeRate())

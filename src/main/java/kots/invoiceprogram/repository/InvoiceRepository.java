@@ -14,6 +14,11 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     Optional<List<Invoice>> searchAllByBusinessId(Long businessId);
 
-    @Query("select i from Invoice i where i.id=:invoiceId and i.business.id=:businessId")
+    @Query("select i from Invoice i " +
+            "left join fetch i.business " +
+            "left join fetch i.customer " +
+            "left join fetch i.itemList " +
+            "left join fetch i.gtuType " +
+            "where i.id=:invoiceId and i.business.id=:businessId")
     Optional<Invoice> searchByIdAndBusinessId(@Param("invoiceId") Long invoiceId, @Param("businessId") Long businessId);
 }
