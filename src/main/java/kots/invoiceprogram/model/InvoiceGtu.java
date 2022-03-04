@@ -1,7 +1,6 @@
 package kots.invoiceprogram.model;
 
 import kots.invoiceprogram.model.selectors.GTUType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +19,9 @@ public class InvoiceGtu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "invoiceId")
-//    private Invoice invoice;
+    @ManyToOne
+    @JoinColumn(name = "invoiceId")
+    private Invoice invoice;
 
     @Enumerated(EnumType.STRING)
     private GTUType gtuType;

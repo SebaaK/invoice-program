@@ -1,6 +1,5 @@
 package kots.invoiceprogram.model.dto;
 
-import kots.invoiceprogram.model.InvoiceGtu;
 import kots.invoiceprogram.model.selectors.PaymentMethod;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +16,7 @@ public class InvoiceDto {
     private BusinessDto business;
     private CustomerDto customer;
     private Set<ItemDto> itemList;
-    private Set<InvoiceGtu> gtuType;
+    private Set<InvoiceGtuDto> gtuType;
     private PaymentMethod paymentMethod;
     private String invoiceNumber;
     private LocalDate createdDate;

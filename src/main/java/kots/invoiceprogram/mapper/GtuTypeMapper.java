@@ -2,6 +2,7 @@ package kots.invoiceprogram.mapper;
 
 import kots.invoiceprogram.model.InvoiceGtu;
 import kots.invoiceprogram.model.dto.CreatedGtuDto;
+import kots.invoiceprogram.model.dto.InvoiceGtuDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,16 @@ public class GtuTypeMapper {
         return new InvoiceGtu(
                 createdGtuDto.getGtuType()
         );
+    }
+
+    public InvoiceGtuDto mapToInvoiceGtuDto(final InvoiceGtu invoiceGtu) {
+        return new InvoiceGtuDto(invoiceGtu.getId(),invoiceGtu.getGtuType());
+    }
+
+    public Set<InvoiceGtuDto> mapToInvoiceGtuDtoSetList(final Set<InvoiceGtu> invoiceList) {
+        return invoiceList.stream()
+                .map(this::mapToInvoiceGtuDto)
+                .collect(Collectors.toSet());
     }
 
     public Set<InvoiceGtu> mapToInvoiceGtuSetList(final List<CreatedGtuDto> createdGtuDto) {

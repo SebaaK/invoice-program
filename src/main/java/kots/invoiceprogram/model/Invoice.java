@@ -29,23 +29,21 @@ public class Invoice {
     private Customer customer;
 
     @OneToMany(
-//            mappedBy = "invoice",
+            mappedBy = "invoice",
             cascade = {
                     CascadeType.REMOVE,
                     CascadeType.PERSIST
             }
     )
-    @JoinColumn(name = "invoiceId")
     private Set<Item> itemList;
 
     @OneToMany(
-//            mappedBy = "invoice",
+            mappedBy = "invoice",
             cascade = {
                     CascadeType.REMOVE,
                     CascadeType.PERSIST
             }
     )
-    @JoinColumn(name = "invoiceId")
     private Set<InvoiceGtu> gtuType;
 
     @Enumerated(EnumType.STRING)

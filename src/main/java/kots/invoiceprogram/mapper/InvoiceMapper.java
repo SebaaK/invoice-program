@@ -62,7 +62,7 @@ public class InvoiceMapper {
                 .business(businessMapper.mapToBusinessDto(invoice.getBusiness()))
                 .customer(customerMapper.mapToCustomerDto(invoice.getCustomer()))
                 .itemList(itemMapper.mapToItemDtoList(invoice.getItemList()))
-                .gtuType(invoice.getGtuType())
+                .gtuType(gtuTypeMapper.mapToInvoiceGtuDtoSetList(invoice.getGtuType()))
                 .paymentMethod(invoice.getPaymentMethod())
                 .invoiceNumber(invoice.getInvoiceNumber())
                 .createdDate(invoice.getCreatedDate())
