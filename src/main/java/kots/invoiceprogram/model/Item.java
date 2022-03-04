@@ -17,9 +17,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "invoiceId")
-    private Invoice invoice;
+//    @ManyToOne
+//
+//    private Invoice invoice;
 
     private String name;
     private int quantity;

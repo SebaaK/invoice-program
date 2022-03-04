@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,25 +22,30 @@ public class Invoice {
 
     @ManyToOne
     @JoinColumn(name = "businessId")
-    @Setter(AccessLevel.NONE)
     private Business business;
 
     @ManyToOne
     @JoinColumn(name = "customerId")
-    @Setter(AccessLevel.NONE)
     private Customer customer;
 
     @OneToMany(
-            mappedBy = "invoice",
+//            mappedBy = "invoice",
             cascade = {
                     CascadeType.REMOVE,
                     CascadeType.PERSIST
             }
     )
+    @JoinColumn(name = "invoiceId")
     private Set<Item> itemList;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "invoice_id")
+    @OneToMany(
+//            mappedBy = "invoice",
+            cascade = {
+                    CascadeType.REMOVE,
+                    CascadeType.PERSIST
+            }
+    )
+    @JoinColumn(name = "invoiceId")
     private Set<InvoiceGtu> gtuType;
 
     @Enumerated(EnumType.STRING)
@@ -56,8 +62,7 @@ public class Invoice {
     private BigDecimal otherCurrencyGrossPrice;
     private BigDecimal exchangeRate;
 
-    public Invoice(Long id, Set<Item> itemList, Set<InvoiceGtu> gtuType, PaymentMethod paymentMethod, String invoiceNumber, LocalDate createdDate, LocalDate issueDate, LocalDate dueDate, BigDecimal grossPrice, String currencyName, String otherCurrencyName, BigDecimal otherCurrencyGrossPrice, BigDecimal exchangeRate) {
-        this.id = id;
+    public Invoice(Set<Item> itemList, Set<InvoiceGtu> gtuType, PaymentMethod paymentMethod, String invoiceNumber, LocalDate createdDate, LocalDate issueDate, LocalDate dueDate, BigDecimal grossPrice, String currencyName, String otherCurrencyName, BigDecimal otherCurrencyGrossPrice, BigDecimal exchangeRate) {
         this.itemList = itemList;
         this.gtuType = gtuType;
         this.paymentMethod = paymentMethod;

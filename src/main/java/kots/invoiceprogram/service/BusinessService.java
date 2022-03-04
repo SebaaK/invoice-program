@@ -22,7 +22,7 @@ public class BusinessService {
     }
 
     public Business getSingleBusiness(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business not found"));
     }
 
     public Business createNewBusiness(Business business) {

@@ -1,6 +1,7 @@
 package kots.invoiceprogram.controller;
 
 import kots.invoiceprogram.mapper.InvoiceMapper;
+import kots.invoiceprogram.model.Invoice;
 import kots.invoiceprogram.model.dto.CreatedInvoiceDto;
 import kots.invoiceprogram.model.dto.InvoiceDto;
 import kots.invoiceprogram.service.InvoiceService;
@@ -30,6 +31,7 @@ class InvoiceController {
 
     @PostMapping("/{idCustomer}")
     ResponseEntity<InvoiceDto> createNewInvoiceForCustomer(@PathVariable Long idBusiness, @PathVariable Long idCustomer, @RequestBody CreatedInvoiceDto invoiceDto) {
-        return ResponseEntity.ok().build();
+        Invoice newInvoice = invoiceService.createNewInvoiceForCustomer(idBusiness, idCustomer, invoiceMapper.mapToInvoice(invoiceDto));
+        return ResponseEntity.ok(invoiceMapper.invoiceDtoWithoutDetails(newInvoice));
     }
 }

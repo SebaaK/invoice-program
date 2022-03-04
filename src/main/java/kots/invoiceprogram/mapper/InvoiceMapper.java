@@ -15,11 +15,24 @@ public class InvoiceMapper {
 
     private final BusinessMapper businessMapper;
     private final CustomerMapper customerMapper;
+    private final GtuTypeMapper gtuTypeMapper;
     private final ItemMapper itemMapper;
 
     public Invoice mapToInvoice(final CreatedInvoiceDto createdInvoiceDto) {
-        return new Invoice();
-        //TODO: Dokończyć!
+        return new Invoice(
+            itemMapper.mapToItemDtoList(createdInvoiceDto.getItemList()),
+            gtuTypeMapper.mapToInvoiceGtuSetList(createdInvoiceDto.getGtuType()),
+                createdInvoiceDto.getPaymentMethod(),
+                createdInvoiceDto.getInvoiceNumber(),
+                createdInvoiceDto.getCreatedDate(),
+                createdInvoiceDto.getIssueDate(),
+                createdInvoiceDto.getDueDate(),
+                createdInvoiceDto.getGrossPrice(),
+                createdInvoiceDto.getCurrencyName(),
+                createdInvoiceDto.getOtherCurrencyName(),
+                createdInvoiceDto.getOtherCurrencyGrossPrice(),
+                createdInvoiceDto.getExchangeRate()
+        );
     }
 
     public InvoiceDto invoiceDtoWithoutDetails(final Invoice invoice) {

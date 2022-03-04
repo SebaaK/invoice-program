@@ -24,7 +24,7 @@ public class CustomerService {
     }
 
     public Customer getCustomer(Business business, Long idCustomer) {
-        return repository.searchCustomerByIdAndBusiness(idCustomer, business).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return repository.searchCustomerByIdAndBusiness(idCustomer, business).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
     }
 
     public List<Customer> getCustomersList(Business business) {
