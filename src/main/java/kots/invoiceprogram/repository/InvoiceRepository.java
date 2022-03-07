@@ -1,5 +1,6 @@
 package kots.invoiceprogram.repository;
 
+import kots.invoiceprogram.model.Business;
 import kots.invoiceprogram.model.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
-    Optional<List<Invoice>> searchAllByBusinessId(Long businessId);
+    List<Invoice> findAllByBusiness(Business business);
 
     @Query("select i from Invoice i " +
             "left join fetch i.business " +

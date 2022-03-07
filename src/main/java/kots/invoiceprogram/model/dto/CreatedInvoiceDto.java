@@ -17,7 +17,6 @@ public class CreatedInvoiceDto {
     private LocalDate createdDate;
     private LocalDate issueDate;
     private LocalDate dueDate;
-    private BigDecimal grossPrice;
     private String currencyName;
     private String otherCurrencyName;
     private BigDecimal otherCurrencyGrossPrice;

@@ -6,6 +6,7 @@ import kots.invoiceprogram.model.dto.CreatedInvoiceDto;
 import kots.invoiceprogram.model.dto.InvoiceDto;
 import kots.invoiceprogram.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,27 @@ class InvoiceController {
 
     @GetMapping("/{idInvoice}")
     ResponseEntity<InvoiceDto> getSingleInvoice(@PathVariable Long idBusiness, @PathVariable Long idInvoice) {
-        return ResponseEntity.ok(invoiceMapper.invoiceDtoWithFullDetails(invoiceService.getSingleInvoice(idInvoice, idBusiness)));
+        return ResponseEntity.ok(invoiceMapper.invoiceDtoWithFullDetails(invoiceService.getSingleInvoice(idBusiness, idInvoice)));
     }
 
-    @PostMapping("/{idCustomer}")
+    @PostMapping("/customer/{idCustomer}")
     ResponseEntity<InvoiceDto> createNewInvoiceForCustomer(@PathVariable Long idBusiness, @PathVariable Long idCustomer, @RequestBody CreatedInvoiceDto invoiceDto) {
         Invoice newInvoice = invoiceService.createNewInvoiceForCustomer(idBusiness, idCustomer, invoiceMapper.mapToInvoice(invoiceDto));
-        return ResponseEntity.ok(invoiceMapper.invoiceDtoWithoutDetails(newInvoice));
+        return new ResponseEntity<>(
+                invoiceMapper.invoiceDtoWithoutDetails(newInvoice),
+                HttpStatus.CREATED
+        );
+    }
+
+    @PutMapping("/{idInvoice}")
+    ResponseEntity<InvoiceDto> updateInvoice(@PathVariable Long idBusiness, @PathVariable Long idInvoice, @RequestBody CreatedInvoiceDto invoiceDto) {
+        Invoice updatedInvoice = invoiceService.updateInvoice(idBusiness, idInvoice, invoiceMapper.mapToInvoice(invoiceDto));
+        return ResponseEntity.ok(invoiceMapper.invoiceDtoWithoutDetails(updatedInvoice));
+    }
+
+    @DeleteMapping("/{idInvoice}")
+    ResponseEntity<Void> deleteInvoice(@PathVariable Long idBusiness, @PathVariable Long idInvoice) {
+        invoiceService.deleteInvoice(idBusiness, idInvoice);
+        return ResponseEntity.ok().build();
     }
 }

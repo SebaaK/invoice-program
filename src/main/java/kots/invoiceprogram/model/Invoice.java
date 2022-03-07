@@ -75,9 +75,19 @@ public class Invoice {
         this.exchangeRate = exchangeRate;
     }
 
+
     @PrePersist
-    void setCreatedDate() {
+    void setAutomaticFields() {
         createdDate = LocalDate.now();
+        calcGrossPrice();
+    }
+
+    @PreUpdate
+    void calcGrossPrice() {
+        grossPrice = BigDecimal.valueOf(itemList.stream()
+                .map(Item::getGrossPrice)
+                .mapToDouble(BigDecimal::doubleValue)
+                .sum());
     }
 
     @Override

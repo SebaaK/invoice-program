@@ -27,7 +27,7 @@ public class InvoiceMapper {
                 createdInvoiceDto.getCreatedDate(),
                 createdInvoiceDto.getIssueDate(),
                 createdInvoiceDto.getDueDate(),
-                createdInvoiceDto.getGrossPrice(),
+                null,
                 createdInvoiceDto.getCurrencyName(),
                 createdInvoiceDto.getOtherCurrencyName(),
                 createdInvoiceDto.getOtherCurrencyGrossPrice(),
