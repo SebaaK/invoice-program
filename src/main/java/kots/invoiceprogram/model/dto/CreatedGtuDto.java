@@ -1,13 +1,10 @@
 package kots.invoiceprogram.model.dto;
 
 import kots.invoiceprogram.model.selectors.GTUType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
-public class InvoiceGtuDto {
+public class CreatedGtuDto {
 
-    private Long id;
     private GTUType gtuType;
 }
