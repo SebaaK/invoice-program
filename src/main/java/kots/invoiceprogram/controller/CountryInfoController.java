@@ -1,5 +1,6 @@
 package kots.invoiceprogram.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import kots.invoiceprogram.client.country.CountryInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ class CountryInfoController {
     private final CountryInfo countryInfo;
 
     @GetMapping("/{country}")
-    ResponseEntity<String> getCurrencyInfo(@PathVariable String country) {
+    ResponseEntity<String> getCurrencyInfo(@PathVariable String country) throws JsonProcessingException {
         return ResponseEntity.ok(countryInfo.getCurrencyInfo(country));
     }
 }
