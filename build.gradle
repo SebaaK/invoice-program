@@ -23,6 +23,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'mysql:mysql-connector-java'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.4'
+    implementation 'org.thymeleaf:thymeleaf:3.1.0.M1'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
