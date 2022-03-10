@@ -54,6 +54,8 @@ public class Invoice {
     private LocalDate createdDate;
     private LocalDate issueDate;
     private LocalDate dueDate;
+    private BigDecimal netPrice;
+    private BigDecimal taxValue;
     private BigDecimal grossPrice;
     private String currencyName;
     private String otherCurrencyName;
@@ -75,7 +77,6 @@ public class Invoice {
         this.exchangeRate = exchangeRate;
     }
 
-
     @PrePersist
     void setAutomaticFields() {
         createdDate = LocalDate.now();
@@ -84,6 +85,18 @@ public class Invoice {
 
     @PreUpdate
     void calcGrossPrice() {
+        netPrice = BigDecimal.valueOf(itemList.stream()
+                .map(Item::getNetPrice)
+                .mapToDouble(BigDecimal::doubleValue)
+                .sum()
+        );
+
+        taxValue = BigDecimal.valueOf(itemList.stream()
+                .map(Item::getTaxValue)
+                .mapToDouble(BigDecimal::doubleValue)
+                .sum()
+        );
+
         grossPrice = BigDecimal.valueOf(itemList.stream()
                 .map(Item::getGrossPrice)
                 .mapToDouble(BigDecimal::doubleValue)

@@ -1,37 +1,37 @@
 package kots.invoiceprogram.service;
 
 import kots.invoiceprogram.model.Mail;
-import kots.invoiceprogram.model.dto.BusinessDto;
-import kots.invoiceprogram.model.dto.InvoiceDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class MailService {
 
     private final JavaMailSender javaMailSender;
-    private final TemplateEngine templateEngine;
+    private final PdfService pdfService;
 
-    private MimeMessagePreparator createMessage(final Mail mail) {
-        return mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(mail.getMailTo());
-            messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(buildPaymentReminder(null, null));
-            //invoicebysebaa@gmail.com
-        };
+    public void send(final Mail mail) {
+        try {
+            javaMailSender.send(createMailWithAttachment(mail));
+        } catch (MailException e) {
+            log.error("Mail doesn`t send. Info: " + e.getMessage());
+        }
     }
 
-    private String buildPaymentReminder(BusinessDto business, InvoiceDto invoice) {
-        Context context = new Context();
-        context.setVariable("business", business);
-        context.setVariable("invoice", invoice);
-        return templateEngine.process("mail/payment-reminder.html", context);
+    private MimeMessagePreparator createMailWithAttachment(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mail.getMessage(), true);
+            messageHelper.addAttachment(mail.getAttachmentFileName(), pdfService.generatePdf(mail.getHtmlCodeToGeneratePdf()));
+        };
     }
 }

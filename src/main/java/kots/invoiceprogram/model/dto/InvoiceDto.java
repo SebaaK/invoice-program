@@ -22,6 +22,8 @@ public class InvoiceDto {
     private LocalDate createdDate;
     private LocalDate issueDate;
     private LocalDate dueDate;
+    private BigDecimal netPrice;
+    private BigDecimal taxValue;
     private BigDecimal grossPrice;
     private String currencyName;
     private String otherCurrencyName;

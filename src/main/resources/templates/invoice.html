@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${invoice.getInvoiceNumber()}"></title>
+    <style>
+        .underline {
+            border-bottom: 1px solid #CCC;
+            font-size: 10;
+            text-align: center;
+        }
+
+        .items_table td {
+            border: 1px solid #CCC;
+            font-size: 8;
+        }
+    </style>
+</head>
+<body>
+<!-- SEKCJA Z NUMEREM FAKTURY -->
+<table width="100%" cellpadding="5">
+    <tr>
+        <td style="width: 33%; font-size:14"></td>
+        <td style="width: 34%; border:1px solid #CCC; font-size:14; text-align: center;">
+            Numer FV: <span th:text="${invoice.getInvoiceNumber()}"></span>
+        </td>
+        <td style="width: 33%; font-size:8; text-align:right;"></td>
+    </tr>
+</table>
+<br/><br/><br/>
+
+
+<!-- SEKCJA Z INFORMACJAMI -->
+<table width="100%" cellpadding="3" style="font-size:8;">
+    <tr>
+        <td style="width: 20%;">
+            Data sprzedaży:
+        </td>
+        <td style="width: 25%; border-bottom:1px solid #CCC; text-align: center;" th:text="${invoice.getIssueDate()}"></td>
+        <td style="width: 10%;"></td>
+        <td style="width: 20%;">
+            Miejsce wystawienia:
+        </td>
+        <td style="width: 25%; border-bottom:1px solid #CCC; text-align: center;" th:text="${business.getCity()}"></td>
+    </tr>
+    <tr>
+        <td style="width: 20%;">
+            Data wystawienia:
+        </td>
+        <td style="width: 25%; border-bottom:1px solid #CCC; text-align: center;" th:text="${invoice.getCreatedDate()}"></td>
+        <td style="width: 10%;"></td>
+        <td style="width: 20%;">
+            Sposób zapłaty:
+        </td>
+        <td style="width: 25%; border-bottom:1px solid #CCC; text-align: center;" th:text="${invoice.getPaymentMethod()}"></td>
+    </tr>
+</table>
+
+<!-- SEKCJA Z ADRESAMI -->
+<table width="100%" cellspacing="15" style="font-size:10">
+    <tr>
+        <td style="width: 50%;">
+            <div class="underline">Sprzedawca:</div>
+            <br/><span th:text="${business.getFullName()}"></span>
+            <br/><span th:text="${business.getPostalCode()}"></span> <span th:text="${business.getCity()}"></span>
+            <br/>NIP: <span th:text="${business.getTaxId()}"></span>
+        </td>
+        <td style="width: 50%;">
+            <div class="underline">Nabywca:</div>
+            <br/><span th:text="${customer.getBusinessName()}"></span>
+            <br/><span th:text="${customer.getBusinessPostalCode()}"></span> <span th:text="${customer.getBusinessCity()}"></span>
+            <br/>NIP: <span th:text="${customer.getTaxId()}"></span>
+        </td>
+    </tr>
+</table>
+<br/><br/>
+
+<!-- TABELA Z PRODUKTAMI -->
+<table cellspacing="0" cellpadding="2" class="items_table" width="100%">
+    <tr style="background-color:#EEE;">
+        <td width="42%" align="center">Nazwa towaru/usługi</td>
+        <td width="3%" align="center">JM</td>
+        <td width="5%" align="center">Ilość</td>
+        <td width="9%" align="center" colspan="2">Jedn. <br/>netto</td>
+        <td width="9%" align="center">Wartość netto</td>
+        <td width="5%" align="center">VAT</td>
+        <td width="9%" align="center">Wartość VAT</td>
+        <td width="9%" align="center">Wartość brutto</td>
+    </tr>
+
+    <!-- FAKTURA POZYCJE -->
+    <tr style="text-align:right;" th:each="item : ${invoiceItems}">
+        <td style="text-align:left;" th:text="${item.getName()}"></td>
+        <td style="text-align:center;">szt</td>
+        <td th:text="${item.getQuantity()}"></td>
+        <td th:text="${item.getSingleNetPrice()}" colspan="2"></td>
+        <td th:text="${item.getNetPrice()}"></td>
+        <td><span th:text="${#numbers.formatDecimal(item.getTaxPercent() * 100, 0, 0)}"></span>%</td>
+        <td th:text="${item.getTaxValue()}"></td>
+        <td th:text="${item.getGrossPrice()}"></td>
+    </tr>
+
+
+    <tr style="text-align:center; background-color:#EEE;">
+        <td colspan="5" style="border-left: 2px solid #FFF; border-bottom: 2px solid #FFF; background-color:#FFF;"></td>
+        <td>Netto</td>
+        <td></td>
+        <td>VAT</td>
+        <td>Brutto</td>
+    </tr>
+
+    <tr style="text-align:right;">
+        <td colspan="5" style="border-left: 2px solid #FFF; border-bottom: 2px solid #FFF; background-color:#FFF;">
+            Razem:
+        </td>
+        <td th:text="${invoice.getNetPrice()}"></td>
+        <td></td>
+        <td th:text="${invoice.getTaxValue()}"></td>
+        <td th:text="${invoice.getGrossPrice()}"></td>
+    </tr>
+
+</table>
+<br/>
+
+
+<!-- PODSUMOWANIE -->
+<!--<table style="font-size:8; width: 10%; border-bottom: 1px solid #CCC;">-->
+<!--    <tr>-->
+<!--        <td>Słownie:</td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<span style="font-size:8">[wartosc_slownie]</span>-->
+<br/><br/><br/>
+<!--<div align="right" style="font-size: 8;">Osoba upoważniona do wystawienia dokumentu<br/>[osoba_upowazniona]</div>-->
+<br/><br/>
+<div style="font-size: 8;" th:if="${invoice.getOtherCurrencyName() != null}">
+    1 <span th:text="${invoice.getOtherCurrencyName()}"></span> =
+    <span th:text="${invoice.getExchangeRate()}"></span>
+    <span th:text="${invoice.getCurrencyName()}"></span>
+</div>
+</body>
+</html>

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Objects;
 
 @Entity
@@ -23,16 +24,18 @@ public class Item {
 
     private String name;
     private int quantity;
+    private BigDecimal singleNetPrice;
     private BigDecimal netPrice;
     private double taxPercent;
     private BigDecimal taxValue;
     private BigDecimal grossPrice;
     private double discount;
 
-    public Item(Long id, String name, int quantity, BigDecimal netPrice, double taxPercent, BigDecimal taxValue, BigDecimal grossPrice, double discount) {
+    public Item(Long id, String name, int quantity, BigDecimal singleNetPrice, BigDecimal netPrice, double taxPercent, BigDecimal taxValue, BigDecimal grossPrice, double discount) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+        this.singleNetPrice = singleNetPrice;
         this.netPrice = netPrice;
         this.taxPercent = taxPercent;
         this.taxValue = taxValue;
@@ -43,7 +46,7 @@ public class Item {
     @PreUpdate
     @PrePersist
     public void calculateGrossPrice() {
-        // FIXME: 03.03.2022 Trzeba poprawić liczenie Netto?Brutto
+        netPrice = singleNetPrice.multiply(BigDecimal.valueOf(quantity));
         taxValue = netPrice.multiply(BigDecimal.valueOf(taxPercent));
         grossPrice = netPrice.add(taxValue);
         grossPrice.divide(BigDecimal.valueOf(1 + discount));

@@ -12,6 +12,7 @@ public class ItemDto {
     private Long id;
     private String name;
     private Integer quantity;
+    private BigDecimal singleNetPrice;
     private BigDecimal netPrice;
     private Double taxPercent;
     private BigDecimal taxValue;
