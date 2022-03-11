@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,6 +16,7 @@ public class InvoiceDto {
     private Long id;
     private BusinessDto business;
     private CustomerDto customer;
+    private List<InvoicePaymentDto> paymentsList;
     private Set<ItemDto> itemList;
     private Set<InvoiceGtuDto> gtuType;
     private PaymentMethod paymentMethod;

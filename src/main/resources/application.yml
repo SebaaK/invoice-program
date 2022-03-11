@@ -4,7 +4,6 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password: sa
-    initialization-mode: always
   jpa:
     show-sql: true
     hibernate:
@@ -27,3 +26,6 @@ spring:
   h2:
     console:
       enabled: true
+  sql:
+    init:
+      mode: always

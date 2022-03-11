@@ -16,6 +16,7 @@ public class InvoiceMapper {
     private final BusinessMapper businessMapper;
     private final CustomerMapper customerMapper;
     private final GtuTypeMapper gtuTypeMapper;
+    private final InvoicePaymentMapper invoicePaymentMapper;
     private final ItemMapper itemMapper;
 
     public Invoice mapToInvoice(final CreatedInvoiceDto createdInvoiceDto) {
@@ -63,6 +64,7 @@ public class InvoiceMapper {
                 .id(invoice.getId())
                 .business(businessMapper.mapToBusinessDto(invoice.getBusiness()))
                 .customer(customerMapper.mapToCustomerDto(invoice.getCustomer()))
+                .paymentsList(invoicePaymentMapper.mapToInvoicePaymentDtoList(invoice.getInvoicePayment()))
                 .itemList(itemMapper.mapToItemDtoList(invoice.getItemList()))
                 .gtuType(gtuTypeMapper.mapToInvoiceGtuDtoSetList(invoice.getGtuType()))
                 .paymentMethod(invoice.getPaymentMethod())

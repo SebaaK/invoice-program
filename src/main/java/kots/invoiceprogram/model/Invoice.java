@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,6 +28,12 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
+
+    @OneToMany(
+            mappedBy = "invoice",
+            cascade = CascadeType.REMOVE
+    )
+    private List<InvoicePayment> invoicePayment;
 
     @OneToMany(
             mappedBy = "invoice",
