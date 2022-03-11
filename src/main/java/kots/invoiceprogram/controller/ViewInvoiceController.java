@@ -24,7 +24,7 @@ class ViewInvoiceController {
 
     private final BusinessService businessService;
     private final InvoiceService invoiceService;
-    private final TemplateViewsService templateViewsService;
+    private final TemplateMailService templateMailService;
     private final PdfService pdfService;
     private final MailService mailService;
 
@@ -32,7 +32,7 @@ class ViewInvoiceController {
     void getInvoicePdf(@PathVariable Long idBusiness, @PathVariable Long idInvoice, HttpServletResponse response) {
         Business singleBusiness = businessService.getSingleBusiness(idBusiness);
         Invoice singleInvoice = invoiceService.getSingleInvoice(idBusiness, idInvoice);
-        String generatedHTML = templateViewsService.viewInvoiceAsPdf(singleBusiness, singleInvoice);
+        String generatedHTML = templateMailService.viewInvoiceAsPdf(singleBusiness, singleInvoice);
 
         try {
             Path file = Paths.get(pdfService.generatePdf(generatedHTML).getAbsolutePath());
@@ -52,16 +52,16 @@ class ViewInvoiceController {
     void sendMail(@PathVariable Long idBusiness, @PathVariable Long idInvoice) {
         Business singleBusiness = businessService.getSingleBusiness(idBusiness);
         Invoice singleInvoice = invoiceService.getSingleInvoice(idBusiness, idInvoice);
-        String generatedHTML = templateViewsService.viewInvoiceAsPdf(singleBusiness, singleInvoice);
+        String generatedHTML = templateMailService.viewInvoiceAsPdf(singleBusiness, singleInvoice);
 
         Mail mail = Mail.builder()
                 .mailTo("sebaa.kot@gmail.com")
                 .subject("Test mail with attachment")
-                .message("FV")
+                .messageTemplate("FV")
                 .attachmentFileName("fakturka.pdf")
                 .htmlCodeToGeneratePdf(generatedHTML)
                 .build();
 
-        mailService.send(mail);
+        mailService.sendWithAttachment(mail);
     }
 }

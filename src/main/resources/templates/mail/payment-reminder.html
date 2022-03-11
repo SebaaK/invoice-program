@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -89,7 +86,6 @@
             <div class="content" style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
 
                 <!-- START CENTERED WHITE CONTAINER -->
-                <span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">PREVIEW_MESSAGE</span>
                 <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
 
                     <!-- START MAIN CONTENT AREA -->
@@ -99,14 +95,17 @@
                                 <tr>
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Szanowni Państwo,</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Wzywamy ostatecznie do zapłaty faktury nr XXX z dnia XXX na sumę XXX, która powinna być dokonana do dnia 03-05-2021.</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Wzywamy ostatecznie do zapłaty faktury nr <span th:text="${invoice.invoiceNumber}">[invoiceNumber]</span> z dnia <span th:text="${invoice.createdDate}">[createInvoiceDate]</span> na sumę <span th:text="${invoice.grossPrice}">[grossPrice]</span> <span th:text="${invoice.currencyName}">[currencyName]</span>, która powinna być dokonana do dnia <span th:text="${invoice.dueDate}">[dueDate]</span>.</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Informujemy, że w przypadku niedokonania wpłaty w powyższym terminie zapłaty, od należnej kwoty będziemy naliczać odsetki ustawowe.</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Wiadomość została wygenerowana automatycznie przez system. Prosimy nie odpowiadać na nią.</p>
+                                        <!-- POZOSTAŁOŚĆ DO ZAPŁATY -->
+                                        <p th:if="${invoice.includePayment > 0}">Pozostało do zapłaty: <span th:text="${invoice.grossPrice - invoice.includePayment}">[includePayment]</span> <span th:text="${invoice.currencyName}">[currencyName]</span></p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">---</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Pozdrawiamy serdecznie,
-                                            XXX Test Test
-                                            Kielecka 3, 25-001 Kielce
-                                            NIP: 11111111
+                                            <p>Pozdrawiamy serdecznie,</p>
+                                            <span th:text="${invoice.customer.businessName}">[fullNameCompany]</span><br/>
+                                            <span th:text="${invoice.customer.businessPostalCode}">[postalCodeBusiness]</span> <span th:text="${invoice.customer.businessCity}">[businessCity]</span><br/>
+                                            NIP: <span th:text="${invoice.customer.taxId}">[taxIdBusiness]</span><br/>
                                         </p>
                                     </td>
                                 </tr>

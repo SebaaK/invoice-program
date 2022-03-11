@@ -12,7 +12,7 @@ import org.thymeleaf.context.Context;
 
 @Service
 @RequiredArgsConstructor
-public class TemplateViewsService {
+public class TemplateMailService {
 
     @Qualifier("templateEngine")
     private final TemplateEngine templateEngine;
@@ -26,9 +26,8 @@ public class TemplateViewsService {
         return templateEngine.process("invoice", context);
     }
 
-    public String buildPaymentReminder(BusinessDto business, InvoiceDto invoice) {
+    public String buildPaymentReminder(Invoice invoice) {
         Context context = new Context();
-        context.setVariable("business", business);
         context.setVariable("invoice", invoice);
         return templateEngine.process("mail/payment-reminder", context);
     }

@@ -24,4 +24,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
             "left join fetch i.gtuType " +
             "where i.id=:invoiceId and i.business.id=:businessId")
     Optional<Invoice> searchByIdAndBusinessId(@Param("invoiceId") Long invoiceId, @Param("businessId") Long businessId);
+
+    @Query("select i from Invoice i " +
+            "left join fetch i.business " +
+            "left join fetch i.customer " +
+            "where i.grossPrice > i.includePayment")
+    List<Invoice> dataForEmailReminderScheduled();
 }

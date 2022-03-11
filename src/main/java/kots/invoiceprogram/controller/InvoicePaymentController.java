@@ -6,6 +6,7 @@ import kots.invoiceprogram.model.dto.InvoicePaymentDto;
 import kots.invoiceprogram.service.InvoicePaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ class InvoicePaymentController {
         return ResponseEntity.ok(mapper.mapToInvoicePaymentDtoList(service.getAllPayments(idBusiness, idInvoice)));
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<InvoicePaymentDto> addNewPayment(
             @PathVariable Long idBusiness,
             @PathVariable Long idInvoice,

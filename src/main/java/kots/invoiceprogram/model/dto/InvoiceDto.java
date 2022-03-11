@@ -27,6 +27,7 @@ public class InvoiceDto {
     private BigDecimal netPrice;
     private BigDecimal taxValue;
     private BigDecimal grossPrice;
+    private BigDecimal includePayment;
     private String currencyName;
     private String otherCurrencyName;
     private BigDecimal otherCurrencyGrossPrice;

@@ -17,6 +17,7 @@ spring:
     port: 587
     username: invoicebysebaa@gmail.com
     password: zaq1@WSXX
+    personal_title: InvoiceProgramBySebaa
     properties:
       mail:
         smtp:
@@ -29,3 +30,5 @@ spring:
   sql:
     init:
       mode: always
+
+cron.expression: 0 0 12 ? * TUE *

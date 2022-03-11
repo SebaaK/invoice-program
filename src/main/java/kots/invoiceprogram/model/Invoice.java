@@ -6,10 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -64,6 +61,7 @@ public class Invoice {
     private BigDecimal netPrice;
     private BigDecimal taxValue;
     private BigDecimal grossPrice;
+    private BigDecimal includePayment;
     private String currencyName;
     private String otherCurrencyName;
     private BigDecimal otherCurrencyGrossPrice;
@@ -84,6 +82,7 @@ public class Invoice {
         this.exchangeRate = exchangeRate;
     }
 
+    //TODO: Zmienić na skrypty po stronie bazy danych B)
     @PrePersist
     void setAutomaticFields() {
         createdDate = LocalDate.now();
@@ -91,7 +90,7 @@ public class Invoice {
     }
 
     @PreUpdate
-    void calcGrossPrice() {
+    public void calcGrossPrice() {
         netPrice = BigDecimal.valueOf(itemList.stream()
                 .map(Item::getNetPrice)
                 .mapToDouble(BigDecimal::doubleValue)
@@ -108,6 +107,13 @@ public class Invoice {
                 .map(Item::getGrossPrice)
                 .mapToDouble(BigDecimal::doubleValue)
                 .sum());
+
+        if(invoicePayment != null) {
+            includePayment = BigDecimal.valueOf(invoicePayment.stream()
+                    .map(InvoicePayment::getPaymentValue)
+                    .mapToDouble(BigDecimal::doubleValue)
+                    .sum());
+        }
     }
 
     @Override
