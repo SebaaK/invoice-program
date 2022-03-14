@@ -39,3 +39,18 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task generateData() {
+    doLast {
+        File dataSQL = file("src/main/resources/data.sql")
+        dataSQL.write("")
+
+        dataSQL.append("DELETE FROM business_details;\n\n");
+
+        //business
+        for (int i = 1; i <10; i++) {
+            dataSQL.append("INSERT INTO business_details(ID, FULL_NAME, ADDRESS, POSTAL_CODE, CITY, COUNTRY, TAX_ID, EMAIL_ADDRESS) " +
+                    "VALUES (${i}, 'TEST_COMPANY ${i}', 'Kielecka #${i}', '12-34${i}', 'Kielce', 'POLAND', 12345678${i}, 'example_#${i}@test');\n");
+        }
+    }
+}
