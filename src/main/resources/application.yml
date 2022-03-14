@@ -31,4 +31,4 @@ spring:
     init:
       mode: always
 
-cron.expression: 0 0 12 ? * TUE *
+cron.expression: 0 0 12 * * TUE
