@@ -41,10 +41,4 @@ public class BusinessMapper {
                 .map(this::mapToBusinessDto)
                 .collect(Collectors.toList());
     }
-
-    public List<Business> mapToBusinessList(final List<BusinessDto> businessDtoList) {
-        return businessDtoList.stream()
-                .map(this::mapToBusiness)
-                .collect(Collectors.toList());
-    }
 }
