@@ -1,10 +1,14 @@
 package kots.invoiceprogram.model.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class CreatedItemDto {
 
     //TODO: Poprawić na dobre pola. Dane które są wpisywane w formularzu
