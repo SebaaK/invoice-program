@@ -31,7 +31,7 @@ public class BusinessService {
 
     @Transactional
     public Business updateBusinessInfo(BusinessDto business) {
-        Business businessEdited = repository.findById(business.getId()).orElseThrow();
+        Business businessEdited = getSingleBusiness(business.getId());
         businessEdited.setFullName(business.getFullName());
         businessEdited.setAddress(business.getAddress());
         businessEdited.setPostalCode(business.getPostalCode());
