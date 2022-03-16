@@ -45,4 +45,8 @@ public class BusinessService {
     public void deleteBusiness(Long id) {
         repository.deleteById(id);
     }
+
+    public Business getBusinessByTaxId(Integer taxId) {
+        return repository.findByTaxId(taxId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business not found"));
+    }
 }

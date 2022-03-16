@@ -31,6 +31,11 @@ class BusinessController {
         return ResponseEntity.ok(mapper.mapToBusinessDto(service.getSingleBusiness(id)));
     }
 
+    @GetMapping("/taxNumber/{taxId}")
+    ResponseEntity<BusinessDto> getBusinessByTaxId(@PathVariable Integer taxId) {
+        return ResponseEntity.ok(mapper.mapToBusinessDto(service.getBusinessByTaxId(taxId)));
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<BusinessDto> newBusiness(@RequestBody final BusinessDto businessDto) {
         Business business = mapper.mapToBusiness(businessDto);
