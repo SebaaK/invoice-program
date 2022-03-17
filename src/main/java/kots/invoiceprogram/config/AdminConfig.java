@@ -13,4 +13,7 @@ public class AdminConfig {
 
     @Value("${spring.mail.personal_title}")
     private String mailPersonalTitle;
+
+    @Value("${client.verify}")
+    private String clientIdGoogle;
 }

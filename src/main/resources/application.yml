@@ -31,4 +31,5 @@ spring:
     init:
       mode: always
 
+client.verify: 1062812380769-tnjh9aur9hr7h13orqfjr3pamqolq92v.apps.googleusercontent.com
 cron.expression: 0 0 12 * * TUE
