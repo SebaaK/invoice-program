@@ -25,6 +25,10 @@ public class BusinessService {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business not found"));
     }
 
+    public Business getBusinessByEmailAddress(String email) {
+        return repository.findByEmailAddress(email).orElse(new Business());
+    }
+
     public Business createNewBusiness(Business business) {
         return repository.save(business);
     }
