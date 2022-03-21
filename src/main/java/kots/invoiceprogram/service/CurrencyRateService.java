@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,13 +29,8 @@ public class CurrencyRateService {
     }
 
     private Map<String, Double> filterByCurrency(String currency, Map<String, Double> mapToFilter) {
-        Map<String, Double> filteredMap = new HashMap<>();
-        for(Map.Entry<String, Double> entry : mapToFilter.entrySet()) {
-            if(currency.equals(entry.getKey())) {
-                filteredMap.put(entry.getKey(), entry.getValue());
-                return filteredMap;
-            }
-        }
-        return filteredMap;
+        return mapToFilter.entrySet().stream()
+                .filter(item -> currency.equals(item.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

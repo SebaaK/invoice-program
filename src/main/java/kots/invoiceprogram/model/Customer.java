@@ -1,8 +1,6 @@
 package kots.invoiceprogram.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "customers")
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
 
