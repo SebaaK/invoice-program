@@ -1,9 +1,7 @@
 package kots.invoiceprogram.model;
 
 import kots.invoiceprogram.model.selectors.GTUType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,6 +11,8 @@ import java.util.Objects;
 @Setter
 @Table(name = "invoicesGtu")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class InvoiceGtu {
 
     @Id

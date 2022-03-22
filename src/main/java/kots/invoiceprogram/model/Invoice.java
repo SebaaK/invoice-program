@@ -9,9 +9,12 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "invoices")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Invoice {
 
     @Id

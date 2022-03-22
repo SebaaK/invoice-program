@@ -25,7 +25,7 @@ class GtuTypeMapperTest {
     @Test
     void shouldReturnInvoiceGtu() {
         // given
-        CreatedGtuDto createdGtuDto = new CreatedGtuDto(GTUType.GTU12);
+        CreatedGtuDto createdGtuDto = new CreatedGtuDto(GTUType.GTU_12);
 
         // when
         InvoiceGtu result = gtuTypeMapper.mapToInvoiceGtu(createdGtuDto);
@@ -34,7 +34,7 @@ class GtuTypeMapperTest {
         assertAll(
                 () -> assertEquals(null, result.getId()),
                 () -> assertEquals(null, result.getInvoice()),
-                () -> assertEquals(GTUType.GTU12, result.getGtuType())
+                () -> assertEquals(GTUType.GTU_12, result.getGtuType())
         );
     }
 
@@ -44,7 +44,7 @@ class GtuTypeMapperTest {
         InvoiceGtu invoiceGtu = new InvoiceGtu();
         invoiceGtu.setId(1L);
         invoiceGtu.setInvoice(null);
-        invoiceGtu.setGtuType(GTUType.GTU13);
+        invoiceGtu.setGtuType(GTUType.GTU_13);
 
         // when
         InvoiceGtuDto result = gtuTypeMapper.mapToInvoiceGtuDto(invoiceGtu);
@@ -52,7 +52,7 @@ class GtuTypeMapperTest {
         // then
         assertAll(
                 () -> assertEquals(1L, result.getId()),
-                () -> assertEquals(GTUType.GTU13, result.getGtuType())
+                () -> assertEquals(GTUType.GTU_13, result.getGtuType())
         );
     }
 
@@ -72,8 +72,8 @@ class GtuTypeMapperTest {
     void shouldReturnSetListInvoiceGtu() {
         // given
         List<CreatedGtuDto> invoiceGtuDtoSetList = new ArrayList<>();
-        invoiceGtuDtoSetList.add(new CreatedGtuDto(GTUType.GTU12));
-        invoiceGtuDtoSetList.add(new CreatedGtuDto(GTUType.GTU13));
+        invoiceGtuDtoSetList.add(new CreatedGtuDto(GTUType.GTU_12));
+        invoiceGtuDtoSetList.add(new CreatedGtuDto(GTUType.GTU_13));
 
         // when
         Set<InvoiceGtu> result = gtuTypeMapper.mapToInvoiceGtuSetList(invoiceGtuDtoSetList);
@@ -89,7 +89,7 @@ class GtuTypeMapperTest {
             InvoiceGtu invoiceGtu = new InvoiceGtu();
             invoiceGtu.setId(i);
             invoiceGtu.setInvoice(null);
-            invoiceGtu.setGtuType(GTUType.GTU13);
+            invoiceGtu.setGtuType(GTUType.GTU_13);
 
             invoiceGto.add(invoiceGtu);
         }
