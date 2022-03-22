@@ -13,11 +13,11 @@ spring:
     default-property-inclusion: non_null
 
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: invoicebysebaa@gmail.com
-    password: zaq1@WSXX
-    personal_title: InvoiceProgramBySebaa
+    host:  # <- host serwera smtp. Jeśli nie możesz znaleść swoich ustawień SMTP w na swojej poczcie być może ten link Ci pomoże -> https://www.blulink.pl/serwery-poczty-smtp,-pop3,-imap,125.html
+    port: 587 # <- port serwera smtp. Domyślnie jest to ten port. Jeśli jest inny niż już wpisany, zmień go.
+    username:  # <- login użytkownika
+    password:  # <- hasło użytkownika
+    personal_title: InvoiceProgramBySebaa # <- dowolna nazwa nadającego, zamiast zwykłego adresu email.
     properties:
       mail:
         smtp:
@@ -31,5 +31,5 @@ spring:
     init:
       mode: always
 
-client.verify: 1062812380769-tnjh9aur9hr7h13orqfjr3pamqolq92v.apps.googleusercontent.com
-cron.expression: 0 0 12 * * TUE
+client.verify:  # <- token weryfikacyjny w Google, potrzebny do weryfikacji tokenu logującego z przeglądarki. Aby stworzyć konto podążaj za tymi instrukcjami: https://www.youtube.com/watch?v=YNwx1nE1boo
+cron.expression: 0 0 12 * * TUE # <- domyślna wartość automatycznych wiadomości przypoiminajacych o fakturze. Obecnie jest to w każdy wtorek o godzinie 12.00
